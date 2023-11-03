@@ -1,7 +1,7 @@
 node {
     try {
         def nodeImage = 'node:16-buster-slim'
-        def nodeContainer = docker.image(nodeImage).withRun("-p 3000:3000")
+        def nodeContainer = docker.image(nodeImage).run("-p 3000:3000")
         
         try {
             stage('Build') {
