@@ -1,15 +1,15 @@
-node {
-    try {
-        def nodeImage = 'node:16-buster-slim'
-        def nodeContainer = docker.image(nodeImage)
-
-        stage('Install Dependencies and Network Task') {
-            nodeContainer.inside {
+pipeline {
+    agent {
+        docker {
+            image 'node:16-buster-slim' 
+            args '-p 3000:3000' 
+        }
+    }
+    stages {
+        stage('Build') { 
+            steps {
                 sh 'npm install'
             }
         }
-    } catch (Exception e) {
-        currentBuild.result = 'FAILURE'
-        throw e
     }
 }
