@@ -4,8 +4,6 @@ node {
         def nodeContainer = docker.image(nodeImage).run("-p 3000:3000")
     }
     stage('Install Dependencies and Prepare Network Task') {
-        nodeContainer.inside {
-            sh 'npm install'
-        }
+        sh 'npm install'
     }
 }
