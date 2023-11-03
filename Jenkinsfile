@@ -1,19 +1,7 @@
 node {
-    try {
-        def nodeImage = 'node:16-buster-slim'
-        def nodeContainer = docker.image(nodeImage).run("-p 3000:3000")
-        
-        try {
-            stage('Build') {
-                nodeContainer.inside {
-                    sh 'npm install'
-                }
-            }
-        } finally {
-            nodeContainer.stop()
+    stage('Install Presquites') {
+        def nodeContainer = docker.image('node:16-buster-slim').inside('-p 3000:3000') {
+            sh 'node -v'
         }
-    } catch (Exception e) {
-        currentBuild.result = 'FAILURE'
-        throw e
     }
 }
