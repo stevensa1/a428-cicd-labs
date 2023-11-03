@@ -1,10 +1,15 @@
 node {
-    stage('Create and Start Container') {
+    try {
         def nodeImage = 'node:16-buster-slim'
-        def nodeContainer = docker.image(nodeImage).run("-p 3000:3000")
+        def nodeContainer = docker.image(nodeImage)
 
-        stage('Install Dependencies and Prepare Network Task') {
-            sh 'npm install'
+        stage('Install Dependencies and Network Task') {
+            nodeContainer.inside {
+                sh 'npm install'
+            }
         }
+    } catch (Exception e) {
+        currentBuild.result = 'FAILURE'
+        throw e
     }
 }
