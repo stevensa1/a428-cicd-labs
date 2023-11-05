@@ -1,4 +1,4 @@
-node ('cicd-pipeline-submission-stevensa1') {
+node {
     def nodeJs = 'node:16-buster-slim'
     triggers {
         pollSCM('H/2 * * * *')
