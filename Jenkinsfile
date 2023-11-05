@@ -1,8 +1,5 @@
 node {
     def nodeJs = 'node:16-buster-slim'
-    triggers {
-        pollSCM('H/2 * * * *')
-    }
     stage('Build') {
         echo 'Building React Application Project...'
         try {
