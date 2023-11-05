@@ -1,5 +1,6 @@
 node {
     withDockerContainer(image: 'node:16-buster-slim', args: '-p 3000:3000') {
+        checkout scm
         stage('Build') {
             echo 'Building project..'
             try {
