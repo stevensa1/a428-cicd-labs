@@ -11,7 +11,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to React by Steven Soewignjo</h1>
         </header>
         <p className="App-intro">
-          Testing the Pipeline SCM
+          Testing the Pipeline SCM by Steven Soewignjo
         </p>
       </div>
     );
