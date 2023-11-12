@@ -1,16 +1,16 @@
 node {
+    checkout scm
     withDockerContainer(image: 'node:16-buster-slim', args: '-p 3000:3000') {
-        checkout scm
-        stage('Build') {
-            echo 'Building project..'
-            try {
-                sh 'npm install'
-                sh 'npm run build'
-            } catch (Exception e) {
-                currentBuild.result = 'FAILURE'
-                error "Build failed: ${e.message}"
-            }
-        }
+        // stage('Build') {
+        //     echo 'Building project..'
+        //     try {
+        //         sh 'npm install'
+        //         sh 'npm run build'
+        //     } catch (Exception e) {
+        //         currentBuild.result = 'FAILURE'
+        //         error "Build failed: ${e.message}"
+        //     }
+        // }
         // stage('Test') {
         //     echo 'Testing the build..'
         //     try {
@@ -43,7 +43,7 @@ node {
                 if (sh(script: 'echo $?', returnStatus: true) != 0) {
                     error "Failed to copy files to the EC2 instance."
                 }
-                
+
                 sh "ssh -i $PEM_FILE ubuntu@ip-172-31-46-142 'cd ~/production_build && sudo serve -l 80 -s build'"
                 if (sh(script: 'echo $?', returnStatus: true) != 0) {
                     error "Failed to start the server on the EC2 instance."
