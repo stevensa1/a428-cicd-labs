@@ -47,7 +47,5 @@ node {
         currentBuild.result = 'FAILURE'
         error "Test failed: ${e.message}"
        }
-       
-       }
     }
 }
