@@ -39,12 +39,12 @@ node {
        input message: 'Deliver to EC2?'
        try {
         withCredentials([file(credentialsId: 'b6d06e6a-fa99-42dd-b0be-1f04486a2723', variable: 'PEM_FILE')]) {
-                sh "scp -i $PEM_FILE -o StrictHostKeyChecking=no -r * ubuntu@ip-172-31-46-142:~/production_build/"
+                sh "scp -i $PEM_FILE -o StrictHostKeyChecking=no -r * ubuntu@ec2-54-162-185-38.compute-1.amazonaws.com:~/production_build/"
                 if (sh(script: 'echo $?', returnStatus: true) != 0) {
                     error "Failed to copy files to the EC2 instance."
                 }
 
-                sh "ssh -i $PEM_FILE ubuntu@ip-172-31-46-142 'cd ~/production_build && sudo serve -l 80 -s build'"
+                sh "ssh -i $PEM_FILE ubuntu@ec2-54-162-185-38.compute-1.amazonaws.com 'cd ~/production_build && sudo serve -l 80 -s build'"
                 if (sh(script: 'echo $?', returnStatus: true) != 0) {
                     error "Failed to start the server on the EC2 instance."
                 }
