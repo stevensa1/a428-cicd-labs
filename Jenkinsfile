@@ -44,7 +44,7 @@ node {
                     error "Failed to copy files to the EC2 instance."
                 }
 
-                sh "ssh -i $PEM_FILE ubuntu@ec2-54-162-185-38.compute-1.amazonaws.com 'cd ~/production_build && sudo serve -l 80 -s build'"
+                sh "ssh -i $PEM_FILE ubuntu@ec2-54-162-185-38.compute-1.amazonaws.com 'cd ~/production_build && npm install && npm run build && sudo serve -l 80 -s build'"
                 if (sh(script: 'echo $?', returnStatus: true) != 0) {
                     error "Failed to start the server on the EC2 instance."
                 }
