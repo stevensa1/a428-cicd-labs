@@ -13,6 +13,9 @@ class App extends Component {
         <p className="App-intro">
           Hello, this is React App!
         </p>
+        <p className="App-intro">
+          Testing the pipeline built by Steven Soewignjo (stevensa1)
+        </p>
       </div>
     );
   }
