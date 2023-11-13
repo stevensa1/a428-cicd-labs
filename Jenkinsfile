@@ -40,8 +40,14 @@ node {
        try {
         withCredentials([file(credentialsId: '1759702f-d204-4d3a-b9be-9c367665f7d4', variable: 'PEM_FILE')]) {
             sh 'ssh -i $PEM_FILE -o StrictHostKeyChecking=no ubuntu@ec2-13-212-84-140.ap-southeast-1.compute.amazonaws.com \'cd ~/a428-cicd-labs && ./jenkins/scripts/kill.sh\''
-            sh 'ssh -i $PEM_FILE -o StrictHostKeyChecking=no ubuntu@ec2-13-212-84-140.ap-southeast-1.compute.amazonaws.com \'cd ~/a428-cicd-labs && git pull\''
-            sh 'ssh -i $PEM_FILE ubuntu@ec2-13-212-84-140.ap-southeast-1.compute.amazonaws.com \'cd ~/a428-cicd-labs && ./jenkins/scripts/prod.sh\''
+            if (sh(script: 'echo $?', returnStatus: true) != 0) {
+                error "Failed to start the server on the EC2 instance."
+            }
+
+            sh 'ssh -i $PEM_FILE -o StrictHostKeyChecking=no ubuntu@ec2-13-212-84-140.ap-southeast-1.compute.amazonaws.com \'cd ~/a428-cicd-labs && ./jenkins/scripts/prod.sh\''
+            if (sh(script: 'echo $?', returnStatus: true) != 0) {
+                error "Failed to start the server on the EC2 instance."
+            }
             
             // OLD DELIVERY SCRIPT (NEED BIGGER RESOURCE) //
             // sh 'ssh -i $PEM_FILE -o StrictHostKeyChecking=no ubuntu@ec2-13-212-84-140.ap-southeast-1.compute.amazonaws.com \'cd ~/production_build && rm -rf *\''
