@@ -1,4 +1,8 @@
+#!/usr/bin/env sh
+
 set -x
 npm run build
-sudo pm2 serve 80 build --spa
+serve 80 build --spa
+sleep 1
+echo $! > .pidfile
 set +x
