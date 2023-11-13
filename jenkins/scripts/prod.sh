@@ -8,7 +8,7 @@ set +x
 
 echo 'Installing dependencies...'
 set -x
-npm install
+npm install --prefer-offline --no-audit --progress=false
 set +x
 
 echo 'Building your Node.js/React application for production...'
