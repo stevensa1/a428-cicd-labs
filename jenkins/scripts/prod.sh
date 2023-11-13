@@ -3,7 +3,7 @@ echo 'Restoring repository state..'
 set -x
 git add .
 git stash
-sudo git pull
+git pull
 set +x
 
 echo 'Installing dependencies...'
