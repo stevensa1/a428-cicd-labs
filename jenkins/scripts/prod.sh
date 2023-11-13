@@ -14,7 +14,7 @@ set +x
 echo 'Building your Node.js/React application for production...'
 set -x
 npm run build
-sudo serve -s build -l 80
+sudo serve -s build -l 80 &
 sleep 1
 echo $! > .pidfile
 set +x
