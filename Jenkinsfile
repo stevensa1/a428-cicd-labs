@@ -44,7 +44,7 @@ node {
                 error "Failed to start the server on the EC2 instance."
             }
 
-            sh 'ssh -i $PEM_FILE -o StrictHostKeyChecking=no ubuntu@ec2-13-212-84-140.ap-southeast-1.compute.amazonaws.com \'cd ~/a428-cicd-labs && ./jenkins/scripts/prod.sh\''
+            sh 'ssh -i $PEM_FILE -o StrictHostKeyChecking=no ubuntu@ec2-13-212-84-140.ap-southeast-1.compute.amazonaws.com \'cd ~/a428-cicd-labs && sudo sh ./jenkins/scripts/prod.sh\''
             if (sh(script: 'echo $?', returnStatus: true) != 0) {
                 error "Failed to start the server on the EC2 instance."
             }
