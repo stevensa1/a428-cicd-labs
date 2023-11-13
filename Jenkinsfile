@@ -39,7 +39,7 @@ node {
        input message: 'Deliver to EC2?'
        try {
         withCredentials([file(credentialsId: '1759702f-d204-4d3a-b9be-9c367665f7d4', variable: 'PEM_FILE')]) {
-            sh 'ssh -i $PEM_FILE -o StrictHostKeyChecking=no ubuntu@ec2-13-212-84-140.ap-southeast-1.compute.amazonaws.com \'cd ~/a428-cicd-labs && ./jenkins/scripts/kill.sh\''
+            sh 'ssh -i $PEM_FILE -o StrictHostKeyChecking=no ubuntu@ec2-13-212-84-140.ap-southeast-1.compute.amazonaws.com \'cd ~/a428-cicd-labs && sudo sh ./jenkins/scripts/kill.sh\''
             if (sh(script: 'echo $?', returnStatus: true) != 0) {
                 error "Failed to start the server on the EC2 instance."
             }
