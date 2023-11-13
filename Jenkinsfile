@@ -39,8 +39,9 @@ node {
        input message: 'Deliver to EC2?'
        try {
         withCredentials([file(credentialsId: '1759702f-d204-4d3a-b9be-9c367665f7d4', variable: 'PEM_FILE')]) {
-            sh 'ssh -i $PEM_FILE -o StrictHostKeyChecking=no ubuntu@ec2-13-212-84-140.ap-southeast-1.compute.amazonaws.com \'cd ~/a428-cicd-labs && ./jenkins/scripts/kill.sh && git pull\''
-            sh 'ssh -i $PEM_FILE ubuntu@ec2-13-212-84-140.ap-southeast-1.compute.amazonaws.com \'cd ~/a428-cicd-labs && ./jenkins/scripts/deliver.sh\''
+            sh 'ssh -i $PEM_FILE -o StrictHostKeyChecking=no ubuntu@ec2-13-212-84-140.ap-southeast-1.compute.amazonaws.com \'cd ~/a428-cicd-labs && ./jenkins/scripts/kill.sh\''
+            sh 'ssh -i $PEM_FILE -o StrictHostKeyChecking=no ubuntu@ec2-13-212-84-140.ap-southeast-1.compute.amazonaws.com \'cd ~/a428-cicd-labs && git pull\''
+            sh 'ssh -i $PEM_FILE ubuntu@ec2-13-212-84-140.ap-southeast-1.compute.amazonaws.com \'cd ~/a428-cicd-labs && ./jenkins/scripts/prod.sh\''
             
             // OLD DELIVERY SCRIPT (NEED BIGGER RESOURCE) //
             // sh 'ssh -i $PEM_FILE -o StrictHostKeyChecking=no ubuntu@ec2-13-212-84-140.ap-southeast-1.compute.amazonaws.com \'cd ~/production_build && rm -rf *\''
